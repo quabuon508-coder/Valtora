@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Trang giới thiệu game Valtora: Binary Flow của SorrowStudio.">
+  <title>Valtora: Binary Flow — Game</title>
+  <style>
+    :root {
+      --bg: #080d1b; --panel: rgba(17, 25, 48, .82); --line: rgba(139, 163, 220, .2);
+      --text: #f2f6ff; --muted: #a9b6d4; --cyan: #66e6f2; --violet: #9b8cff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--text); font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif;
+      background: radial-gradient(ellipse at 75% 8%, #20275a 0, transparent 34%),
+                  radial-gradient(ellipse at 15% 35%, #103e51 0, transparent 30%), var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    header { padding: 22px 0; border-bottom: 1px solid var(--line); background: rgba(8,13,27,.7); }
+    nav { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-weight: 850; letter-spacing: .04em; }
+    .brand span { color: var(--cyan); }
+    .navlinks { display: flex; gap: 22px; flex-wrap: wrap; }
+    .navlinks a { text-decoration: none; color: var(--muted); font-size: .95rem; }
+    .navlinks a:hover { color: var(--cyan); }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 50px; padding: 84px 0 76px; }
+    .eyebrow { color: var(--cyan); text-transform: uppercase; letter-spacing: .2em; font-size: .78rem; font-weight: 800; }
+    h1 { font-size: clamp(2.5rem, 6vw, 5.2rem); line-height: .99; letter-spacing: -.055em; margin: 18px 0; }
+    h1 em { color: var(--cyan); font-style: normal; }
+    .lead { color: var(--muted); font-size: 1.12rem; max-width: 590px; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 19px; border-radius: 12px; font-weight: 750; text-decoration: none; border: 1px solid var(--line); }
+    .btn.primary { color: #07111b; background: linear-gradient(110deg, var(--cyan), #a4fff0); border: 0; }
+    .btn:hover { transform: translateY(-2px); }
+    .art { min-height: 360px; position: relative; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); border-radius: 28px; background: linear-gradient(145deg, rgba(65,92,180,.28), rgba(26,210,219,.08)); box-shadow: 0 25px 80px rgba(0,0,0,.3); }
+    .orb { width: min(58vw, 280px); aspect-ratio: 1; border-radius: 50%; border: 1px solid rgba(102,230,242,.65); box-shadow: 0 0 35px rgba(102,230,242,.25), inset 0 0 45px rgba(102,230,242,.12); position: relative; display: grid; place-items: center; }
+    .orb:before, .orb:after { content: ""; position: absolute; border: 1px solid rgba(155,140,255,.6); border-radius: 50%; transform: rotate(-35deg); width: 135%; height: 35%; }
+    .orb:after { transform: rotate(55deg); border-color: rgba(102,230,242,.5); }
+    .orb b { font-size: clamp(3.2rem, 7vw, 5.8rem); color: var(--cyan); text-shadow: 0 0 28px rgba(102,230,242,.55); }
+    .floating { position: absolute; padding: 9px 13px; border-radius: 10px; background: rgba(7,14,30,.8); border: 1px solid var(--line); color: var(--muted); font: 700 .85rem ui-monospace, monospace; }
+    .f1 { top: 14%; left: 8%; } .f2 { right: 7%; top: 27%; } .f3 { bottom: 15%; left: 12%; }
+    section { padding: 58px 0; }
+    .section-head { max-width: 680px; margin-bottom: 28px; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.12; margin: 8px 0 12px; letter-spacing: -.03em; }
+    .muted { color: var(--muted); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { padding: 24px; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; }
+    .icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: rgba(102,230,242,.1); color: var(--cyan); font-size: 1.35rem; margin-bottom: 16px; }
+    .card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .notice { border: 1px solid var(--line); background: rgba(17,25,48,.65); border-radius: 18px; padding: 24px; }
+    .privacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .privacy-grid .card { padding: 20px; }
+    .contact { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    footer { margin-top: 50px; border-top: 1px solid var(--line); padding: 28px 0 36px; color: var(--muted); font-size: .9rem; }
+    footer .foot { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; padding: 58px 0; gap: 28px; }
+      .art { min-height: 290px; }
+      .cards { grid-template-columns: 1fr; }
+      .privacy-grid { grid-template-columns: 1fr; }
+      nav { align-items: flex-start; flex-direction: column; }
+      .navlinks { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <nav aria-label="Điều hướng chính">
+        <a class="brand" href="#home" style="text-decoration:none">VALTORA<span>:</span> BINARY FLOW</a>
+        <div class="navlinks">
+          <a href="#about">Giới thiệu</a>
+          <a href="#features">Điểm nổi bật</a>
+          <a href="#privacy">Quyền riêng tư</a>
+          <a href="#contact">Liên hệ</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <div class="wrap hero">
+      <div>
+        <div class="eyebrow">SorrowStudio · Game mobile</div>
+        <h1>Think in <em>binary.</em><br>Flow beyond.</h1>
+        <p class="lead">Chào mừng đến với <strong>Valtora: Binary Flow</strong> — trang giới thiệu dành cho tựa game mobile của SorrowStudio. Khám phá thế giới số và trải nghiệm hành trình của riêng bạn.</p>
+        <div class="actions">
+          <a class="btn primary" href="#about">Khám phá game <span aria-hidden="true">&nbsp;↘</span></a>
+          <a class="btn" href="#privacy">Chính sách quyền riêng tư</a>
+        </div>
+      </div>
+      <div class="art" aria-label="Minh họa trừu tượng phong cách công nghệ">
+        <span class="floating f1">0101 / 1010</span>
+        <span class="floating f2">SYSTEM ONLINE</span>
+        <span class="floating f3">BINARY_FLOW.exe</span>
+        <div class="orb"><b>01</b></div>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Giới thiệu</div>
+          <h2>Mở ra dòng chảy của những con số</h2>
+          <p class="muted">Valtora: Binary Flow là tên ứng dụng được nêu trong chính sách quyền riêng tư. Nội dung gameplay, thể loại, ảnh chụp màn hình và đường dẫn tải game chưa có trong tài liệu nguồn, vì vậy phần này dùng nội dung giới thiệu tổng quát và có thể thay bằng thông tin chính thức.</p>
+        </div>
+        <div class="notice">
+          <strong>Đang xây dựng trải nghiệm của bạn.</strong>
+          <p class="muted" style="margin-bottom:0">Hãy thay đoạn mô tả này bằng cách chơi, mục tiêu, cấp độ và tính năng thực tế của game trước khi xuất bản.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Điểm nổi bật</div>
+          <h2>Một giao diện. Nhiều khả năng.</h2>
+          <p class="muted">Các mục bên dưới là khung nội dung mẫu cho trang game, không phải xác nhận về tính năng thực tế.</p>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">⌘</div>
+            <h3>Gameplay</h3>
+            <p class="muted">Thêm mô tả ngắn về cơ chế chơi chính và điều khiến game khác biệt.</p>
+          </article>
+          <article class="card">
+            <div class="icon">✦</div>
+            <h3>Khám phá</h3>
+            <p class="muted">Giới thiệu các màn chơi, thử thách hoặc thế giới mà người chơi có thể trải nghiệm.</p>
+          </article>
+          <article class="card">
+            <div class="icon">◈</div>
+            <h3>Thiết kế</h3>
+            <p class="muted">Bổ sung thông tin về phong cách hình ảnh, âm thanh và cảm giác khi chơi.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="privacy">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">Quyền riêng tư</div>
+          <h2>Dữ liệu của bạn, thông tin rõ ràng</h2>
+          <p class="muted">Tóm tắt dựa trên file Privacy Policy được cung cấp. Hãy đọc chính sách đầy đủ để biết chi tiết.</p>
+        </div>
+        <div class="privacy-grid">
+          <article class="card">
+            <h3>Thông tin có thể được thu thập</h3>
+            <p class="muted">Địa chỉ IP, các trang đã xem, thời điểm và thời lượng truy cập, thời gian sử dụng ứng dụng và hệ điều hành di động. SDK bên thứ ba có thể sử dụng cookie hoặc công nghệ tương tự.</p>
+          </article>
+          <article class="card">
+            <h3>Lưu trữ dữ liệu</h3>
+            <p class="muted">Theo chính sách: dữ liệu do người dùng cung cấp được giữ trong thời gian sử dụng và thêm 12 tháng; dữ liệu tự động thu thập tối đa 24 tháng; dữ liệu tổng hợp, ẩn danh có thể được giữ vô thời hạn, trừ trường hợp pháp luật yêu cầu khác.</p>
+          </article>
+          <article class="card">
+            <h3>Quyền của bạn</h3>
+            <p class="muted">Bạn có thể yêu cầu truy cập, chỉnh sửa hoặc xóa dữ liệu cá nhân, cũng như rút lại sự đồng ý khi áp dụng. Gỡ cài đặt sẽ dừng việc thu thập tiếp theo từ thiết bị nhưng không tự động xóa dữ liệu đã truyền đi.</p>
+          </article>
+          <article class="card">
+            <h3>Trẻ em và bảo mật</h3>
+            <p class="muted">Ứng dụng không dành cho trẻ dưới 16 tuổi (hoặc độ tuổi cao hơn theo luật áp dụng). Nhà cung cấp cho biết có các biện pháp bảo vệ vật lý, điện tử và quy trình để bảo vệ thông tin.</p>
+          </article>
+        </div>
+        <p class="muted" style="font-size:.9rem;margin-top:18px">Chính sách có hiệu lực từ 26/10/2026. Dịch vụ bên thứ ba được nêu trong tài liệu: Google Play Services.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="notice contact">
+          <div>
+            <div class="eyebrow">Liên hệ nhà phát triển</div>
+            <h2 style="margin-bottom:8px">SorrowStudio</h2>
+            <p class="muted" style="margin:0">Câu hỏi về game hoặc quyền riêng tư? Hãy gửi email cho nhà phát triển.</p>
+          </div>
+          <a class="btn primary" href="mailto:quabuon508@gmail.com">quabuon508@gmail.com ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <span>© <span id="year">2026</span> SorrowStudio · Valtora: Binary Flow</span>
+      <span><a href="#privacy">Quyền riêng tư</a> · Thiết kế trang giới thiệu</span>
+    </div>
+  </footer>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
